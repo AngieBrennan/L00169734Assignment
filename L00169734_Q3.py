@@ -43,7 +43,7 @@ if __name__ == '__main__':
             session.connect(ip.rstrip("\n"), username=username,
                             password=password)
             connection = session.invoke_shell()
-            connection.send("ls > dir_contents.txt\n")  # unix command to list  directory contents and save to file
+            connection.send(b"ls > dir_contents.txt\n")  # unix command to list  directory contents and save to file
             time.sleep(1)
             vm_output = connection.recv(65535)
             if re.search(b"% Invalid input", vm_output):
