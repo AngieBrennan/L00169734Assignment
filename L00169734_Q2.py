@@ -22,3 +22,24 @@ if __name__ == '__main__':
       Returns:
         none
     '''
+    """Print the external IP Address"""
+
+import urllib.request
+
+
+def read_page_contents():
+
+    """ scrape web page contents """
+    print("Contents of Page")
+
+
+url = "http://www.lyit.ie"
+
+request2 = urllib.request.urlopen(url)
+request = request2.read()
+
+
+print(request)
+
+if __name__ == "__main__":
+    read_page_contents()
