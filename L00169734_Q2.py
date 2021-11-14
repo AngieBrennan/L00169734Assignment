@@ -22,24 +22,35 @@ if __name__ == '__main__':
       Returns:
         none
     '''
-    """Print the external IP Address"""
+    """ scrape web page contents """
 
+    """Print the external IP Address"""
 import urllib.request
+
+from bs4 import BeautifulSoup
 
 
 def read_page_contents():
-
     """ scrape web page contents """
     print("Contents of Page")
 
 
-url = "http://www.lyit.ie"
+url = "http://192.168.61.129"
 
 request2 = urllib.request.urlopen(url)
 request = request2.read()
 
-
-print(request)
-
 if __name__ == "__main__":
     read_page_contents()
+
+    print(request)
+    """define soup and print"""
+soup = BeautifulSoup(request, "html.parser")
+print(soup.prettify())
+
+"""pull out the number of times Apache is used"""
+
+word = soup.getText("Apache2")
+print(word)
+occurrences = word.count(word)
+print('Number of occurrences of the word:', occurrences)
