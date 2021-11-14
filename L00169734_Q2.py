@@ -6,7 +6,7 @@
 # Version     ：v1.0.0
 # Licencing   : (C) 2021 Angela Brennan, LYIT
 #            Available under GNU Public License (GPL)
-# Description ：Scrape the LYIT web page - parse it minimally for later processing
+# Description ：Scrape the 192.168.61.129 page - parse it minimally for later processing
 #
 """
 
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     '''
       Main method of application
 
-      Use  BeautifulSoup to scrape the LYIT web page
+      Use  BeautifulSoup to scrape the 192.168.61.129 web page
 
       Parameters:
         none
