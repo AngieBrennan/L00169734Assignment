@@ -31,6 +31,7 @@ import socket
 import subprocess
 import sys
 from datetime import datetime
+from socket import getservbyport
 
 
 def port_scan():
@@ -60,7 +61,7 @@ def port_scan():
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             result = sock.connect_ex((remoteserverip, port))
             if result == 0:
-                print("Port {}: 	 Open".format(port))
+                print("Port{}: 	 Open".format(port),     getservbyport(port))
             sock.close()
     except KeyboardInterrupt:
         print("You pressed Ctrl+C")
