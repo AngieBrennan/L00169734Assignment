@@ -45,14 +45,17 @@ if __name__ == "__main__":
 
     print(request)
     """define soup and print"""
-soup = BeautifulSoup(request, "html.parser")
-print(soup.prettify())
 
-"""pull out the number of times Apache is used"""
-headings = soup.find_all("div", {"class": "section_header"})
-print(headings)
+    soup = BeautifulSoup(request, "lxml")
+    print(soup.prettify())
 
-word = soup.find_all("p", attrs={"class": "nav", "data-foo": "Apache2"})
-print(word)
-occurrences = word.count(word)
-print('Number of occurrences of the word:', occurrences)
+    """get word count for Apache2"""
+    word = soup.find_all("Apache2")
+    print(word)
+    occurrences = word.count(word)
+    print('Number of occurrences of the word:', occurrences)
+
+    """get headings"""
+    headings = soup.find('head').get_text()
+    print(headings)
+
