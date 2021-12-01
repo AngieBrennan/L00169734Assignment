@@ -24,38 +24,17 @@ if __name__ == '__main__':
     '''
     """ scrape web page contents """
 
-    """Print the external IP Address"""
-import urllib.request
+    import requests
+    from bs4 import BeautifulSoup
 
-from bs4 import BeautifulSoup
+    """  my ubuntu server address """
+    url = "http://192.168.61.129/"
 
-
-def read_page_contents():
-    """ scrape web page contents """
-    print("Contents of Page")
-
-
-url = "http://192.168.61.129"
-
-request2 = urllib.request.urlopen(url)
-request = request2.read()
-
-if __name__ == "__main__":
-    read_page_contents()
-
-    print(request)
-    """define soup and print"""
-
-    soup = BeautifulSoup(request, "lxml")
-    print(soup.prettify())
-
-    """get word count for Apache2"""
-    word = soup.find_all("Apache2")
-    print(word)
-    occurrences = word.count(word)
-    print('Number of occurrences of the word:', occurrences)
-
-    """get headings"""
-    headings = soup.find('head').get_text()
-    print(headings)
-
+    """  searching for the number of times the word Apache appears on the webpage """
+    the_word = "Apache"
+    result = requests.get(url)
+    doc = BeautifulSoup(result.text, "html.parser")
+    words = doc.find(text=lambda text: text and the_word in text)
+    print(words)
+    count = len(words)
+    print('\nUrl: {}\ncontains {} occurrences of word: {}'.format(url, count, the_word))
