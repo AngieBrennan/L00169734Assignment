@@ -14,7 +14,7 @@ if __name__ == '__main__':
     '''
       Main method of application
 
-      Use  BeautifulSoup to scrape the 192.168.61.129 web page
+      Use  BeautifulSoup to scrape the lyit web page
 
       Parameters:
         none
@@ -27,13 +27,20 @@ if __name__ == '__main__':
     import requests
     from bs4 import BeautifulSoup
 
-    """  my ubuntu server address """
-    url = "http://192.168.61.129/"
+    """  LYIT Webpage """
+    url = "https://www.lyit.ie/"
 
-    """  searching for the number of times the word Apache appears on the webpage """
-    the_word = "Apache"
+    the_word = "LYIT"
     result = requests.get(url)
     doc = BeautifulSoup(result.text, "html.parser")
+
+    """  creating a list of all common heading tags"""
+
+   ##  headings = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    ##for tags in doc.find_all(headings):
+      ##  print(tags.name + ' -> ' + tags.text.strip())
+
+    """  searching for the number of times the word Apache appears on the webpage """
     words = doc.find(text=lambda text: text and the_word in text)
     print(words)
     count = len(words)
