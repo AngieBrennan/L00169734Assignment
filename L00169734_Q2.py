@@ -6,7 +6,7 @@
 # Version     ：v1.0.0
 # Licencing   : (C) 2021 Angela Brennan, LYIT
 #            Available under GNU Public License (GPL)
-# Description ：Scrape the 192.168.61.129 page - parse it minimally for later processing
+# Description ：Scrape the LYIT page - parse it minimally for later processing
 #
 """
 
@@ -34,14 +34,19 @@ if __name__ == '__main__':
     result = requests.get(url)
     doc = BeautifulSoup(result.text, "html.parser")
 
-    """  creating a list of all common heading tags"""
+    """  Q2.1 creating a list of all common heading tags"""
 
-   ##  headings = ["h1", "h2", "h3", "h4", "h5", "h6"]
-    ##for tags in doc.find_all(headings):
-      ##  print(tags.name + ' -> ' + tags.text.strip())
+    headings = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    for tags in doc.find_all(headings):
+        print(tags.name + ' -> ' + tags.text.strip())
 
-    """  searching for the number of times the word Apache appears on the webpage """
+    """  Q2.2 searching for the number of times the word Apache appears on the webpage """
     words = doc.find(text=lambda text: text and the_word in text)
     print(words)
     count = len(words)
     print('\nUrl: {}\ncontains {} occurrences of word: {}'.format(url, count, the_word))
+
+    """ Q2.3 search by class SkinObject """
+    skin = doc.find_all(class_="SkinObject")  # This pulls out the details but is not very clear
+    for skin in skin:
+        print("\n" * 2, skin.text, end="\n" * 2)  # This only pulls the text from that class
