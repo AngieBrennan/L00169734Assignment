@@ -9,6 +9,7 @@
 # Description ：Create Dir structures & find when last accessed
 #
 """
+import re
 
 if __name__ == '__main__':
     '''
@@ -25,37 +26,31 @@ if __name__ == '__main__':
 
 import paramiko
 import time
-import re
 
 
-# Open SSH connection to the device
-# first install ssh-server on the VM
-#           sudo apt install openssh-server openssh-client
-#
-def ssh_connection(ip):
-    """
-    """
+def ssh_connection():
     try:
-        username = "l00169734"
-        password = "NeedThatPaper!21"
-        print("Establishing a connection...")
+        # selected_user_file = open(user_file,'r')
+        ip = "192.168.61.129"
+        user_name = "l00169734".rstrip("\n")
+        user_password = "NeedThatPaper!21".rstrip("\n")
         session = paramiko.SSHClient()
-        session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        session.connect(ip.rstrip("\n"), username=username, password=password)
+        session.set_missing_host_key_policy(paramiko.AutoAddPolicy)
+        session.connect(ip.rstrip("\n"), username=user_name, password=user_password)
         connection = session.invoke_shell()
-        connection.send(b"ls -al > longList.txt\n")  # unix command to list directory contents and save to file
+        connection.send(b"ls -al > Today.txt\n")  # unix command to list  directory contents and save to file
         time.sleep(1)
 
         vm_output = connection.recv(65535)
         if re.search(b"% Invalid input", vm_output):
-            print("There was at least one IOS syntax error on device {}".format(ip))
+            print("There was an error on vm {}".format(ip))
         else:
             print("Commands successfully executed on {}".format(ip))
+        session.exec_command("mkdir Labs\n mkdir Labs/Lab1\n mkdir Labs/Lab2\n")
+        session.exec_command("sudo apt install curl\n")
         session.close()
     except paramiko.AuthenticationException:
         print("Authentication Error")
 
 
-if __name__ == "__main__":
-    # ssh_connection("192.168.61.129") #ip address of my VM, adjust to suit
-    ssh_connection("192.168.61.129")
+ssh_connection()  # ip address of my VM
