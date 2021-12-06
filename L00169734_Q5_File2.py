@@ -9,7 +9,7 @@
 # Description ：Create Dir structures & find when last accessed
 #
 """
-import re
+
 
 if __name__ == '__main__':
     '''
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     '''
 
 import paramiko
-import time
+import re
 
 
 def ssh_connection():
@@ -38,17 +38,19 @@ def ssh_connection():
         session.set_missing_host_key_policy(paramiko.AutoAddPolicy)
         session.connect(ip.rstrip("\n"), username=user_name, password=user_password)
         connection = session.invoke_shell()
-        connection.send(b"ls -al > Today.txt\n")  # unix command to list  directory contents and save to file
-        time.sleep(1)
+        session.exec_command("echo NeedThatPaper | sudo -S apt install -y curl\n")
+        session.exec_command("mkdir Labs\n mkdir Labs/Lab1\n mkdir Labs/Lab2\n")
+        stdin, stdout, stderr = session.exec_command("ls -l --time=atime")
+        for line in iter(stdout.readline, ""):
+            print(line, end="")
 
         vm_output = connection.recv(65535)
         if re.search(b"% Invalid input", vm_output):
             print("There was an error on vm {}".format(ip))
         else:
             print("Commands successfully executed on {}".format(ip))
-        session.exec_command("mkdir Labs\n mkdir Labs/Lab1\n mkdir Labs/Lab2\n")
-        session.exec_command("sudo apt install curl\n")
         session.close()
+
     except paramiko.AuthenticationException:
         print("Authentication Error")
 
