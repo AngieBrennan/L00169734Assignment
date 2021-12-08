@@ -49,7 +49,7 @@ def ssh_connection(ip):
         session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         session.connect(ip.rstrip("\n"), username=username, password=password)
         connection = session.invoke_shell()
-        connection.send(b"ls -al > longlist.txt\n")  # unix command to list  directory contents and save to file
+        connection.send(b"ls -al > Wed081221.txt\n")  # unix command to list  directory contents and save to file
         time.sleep(1)
 
         vm_output = connection.recv(65535)
@@ -62,4 +62,4 @@ def ssh_connection(ip):
         print("Authentication Error")
 
 
-ssh_connection("192.168.1.7")  # ip address of my VM, adjust to suit
+ssh_connection("192.168.61.129")  # ip address of my VM, adjust to suit
