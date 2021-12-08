@@ -57,7 +57,7 @@ def port_scan():
 
     try:
         #  try 1, 1025 if you have time
-        for port in range(1, 81):
+        for port in range(1, 1025):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             result = sock.connect_ex((remoteserverip, port))
             if result == 0:
