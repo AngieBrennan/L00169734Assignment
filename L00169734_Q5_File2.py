@@ -30,17 +30,16 @@ import re
 
 def ssh_connection():
     try:
-        # selected_user_file = open(user_file,'r')
-        ip = "192.168.61.129"
-        user_name = "l00169734".rstrip("\n")
+        ip = "192.168.61.129"  # vm details
+        user_name = "l00169734".rstrip("\n")  # normally you would use getpass or hide the details
         user_password = "NeedThatPaper!21".rstrip("\n")
         session = paramiko.SSHClient()
         session.set_missing_host_key_policy(paramiko.AutoAddPolicy)
         session.connect(ip.rstrip("\n"), username=user_name, password=user_password)
         connection = session.invoke_shell()
-        session.exec_command("echo NeedThatPaper | sudo -S apt install -y curl\n")
-        session.exec_command("mkdir Labs\n mkdir Labs/Lab1\n mkdir Labs/Lab2\n")
-        stdin, stdout, stderr = session.exec_command("ls -l --time=atime")
+        session.exec_command("echo NeedThatPaper!21 | sudo -S apt install curl\n")  # install curl
+        session.exec_command("mkdir Labs\n mkdir Labs/Lab1\n mkdir Labs/Lab2\n")  # create directories
+        stdin, stdout, stderr = session.exec_command("ls -l --time=atime")  # detail last accessed times for files
         for line in iter(stdout.readline, ""):
             print(line, end="")
 
@@ -49,10 +48,10 @@ def ssh_connection():
             print("There was an error on vm {}".format(ip))
         else:
             print("Commands successfully executed on {}".format(ip))
-        session.close()
+        session.close()  # important to ensure session is closed
 
     except paramiko.AuthenticationException:
         print("Authentication Error")
 
 
-ssh_connection()  # ip address of my VM
+ssh_connection()  # uses IP address above
