@@ -24,11 +24,12 @@ if __name__ == '__main__':
     '''
 import sys
 
+
 # Checking each of the 4 octets that make up a valid ip address
 
-    def ip_addr_valid(list):
-        """
-        """
+def ip_addr_valid(list):
+    """
+    """
     for ip in list:
         ip = ip.rstrip("\n")
         octet_list = ip.split('.')
