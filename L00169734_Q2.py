@@ -40,7 +40,7 @@ if __name__ == '__main__':
     for tags in doc.find_all(headings):
         print(tags.name + ' -> ' + tags.text.strip())
 
-    """  Q2.2 searching for the number of times the word Apache appears on the webpage """
+    """  Q2.2 searching for the number of times the word LYIT appears on the webpage """
     words = doc.find(text=lambda text: text and the_word in text)
     print(words)
     count = len(words)
